@@ -3,6 +3,6 @@ module.exports = function(sequelize, DataTypes) {
         item: DataTypes.STRING,
         calories: DataTypes.INT
     });
-    return User;
+    return Food;
   };
   

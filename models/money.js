@@ -3,6 +3,6 @@ module.exports = function(sequelize, DataTypes) {
       item: DataTypes.STRING,
       price: DataTypes.INT
     });
-    return User;
+    return Money;
   };
   

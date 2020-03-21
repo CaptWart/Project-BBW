@@ -6,6 +6,6 @@ module.exports = function(sequelize, DataTypes) {
       reps: DataTypes.INT,
       time: DataTypes.INT
     });
-    return User;
+    return Fitenss;
   };
   
