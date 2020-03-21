@@ -13,11 +13,11 @@ module.exports = function(app) {
 
   // david_test route loads david_test.html
   app.get("/david_test", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/david_test.html"));
+    res.sendFile(path.join(__dirname, "../public/test/david_test/david_index.html"));
   });
 
   // emi_test route loads emi_test.html
   app.get("/emi_test", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/emi_test.html"));
+    res.sendFile(path.join(__dirname, "../public/test/emi_test/emi_index.html"));
   });
 };
