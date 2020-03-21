@@ -1,8 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
-    const Money = sequelize.define("money", {
-      item: DataTypes.STRING,
-      price: DataTypes.INT
-    });
-    return Money;
-  };
-  
+  const Money = sequelize.define("money", {
+    item: DataTypes.STRING,
+    price: DataTypes.INTEGER
+  });
+  return Money;
+};
