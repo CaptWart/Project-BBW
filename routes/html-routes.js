@@ -1,4 +1,5 @@
 var path = require("path");
+var db = require("../models");
 
 // Routes
 // =============================================================
@@ -8,6 +9,8 @@ module.exports = function(app) {
 
   // index route loads view.html
   app.get("/", function(req, res) {
+    console.log(db)
+    console.log("hi")
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
