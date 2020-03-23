@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
     weight: DataTypes.INTEGER,
     sets: DataTypes.INTEGER,
     reps: DataTypes.INTEGER,
-    time: DataTypes.INTEGER
+    time: DataTypes.INTEGER,
+    day: DataTypes.INTEGER
   });
   return Fitness;
 };
