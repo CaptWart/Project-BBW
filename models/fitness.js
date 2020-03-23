@@ -4,7 +4,19 @@ module.exports = function(sequelize, DataTypes) {
     weight: DataTypes.INTEGER,
     sets: DataTypes.INTEGER,
     reps: DataTypes.INTEGER,
-    time: DataTypes.INTEGER
+    time: DataTypes.INTEGER,
+    day: DataTypes.INTEGER,
+    userid: DataTypes.INTEGER
   });
+
+  // Fitness.associate = function(models) {
+  //   // A Fitness can't be created without a User due to the foreign key constraint
+  //   Fitness.belongsTo(models.User, {
+  //     foreignKey: {
+  //       allowNull: false
+  //     }
+  //   });
+  // };
+
   return Fitness;
 };
