@@ -1,11 +1,10 @@
 USE bodybywawa;
 
-INSERT INTO users(firstname,lastname,email,createdAt,updatedAt) 
-VALUES("david","chau","de@gmail.com",'1000-01-01 00:00:00.000000','1000-01-01 00:00:00.000000');
-INSERT INTO users(firstname,lastname,email,createdAt,updatedAt) 
-VALUES("emi","clar","ec@gmail.com",'1000-01-01 00:00:00.000000','1000-01-01 00:00:00.000000');
-INSERT INTO users(firstname,lastname,email,createdAt,updatedAt) 
-VALUES("test","user","tu@gmail.com",'1000-01-01 00:00:00.000000','1000-01-01 00:00:00.000000');
+INSERT INTO users(auth0,firstname,lastname,email,createdAt,updatedAt) 
+VALUES
+("auth0|5e76b62cebaf590c6df9f811","david","chau","de@gmail.com",'1000-01-01 00:00:00.000000','1000-01-01 00:00:00.000000'),
+("auth0|534b62cebaf590c6df9f811","emi","clar","ec@gmail.com",'1000-01-01 00:00:00.000000','1000-01-01 00:00:00.000000'),
+("auth0|5e76b62456baf590c6df9f811","test","user","tu@gmail.com",'1000-01-01 00:00:00.000000','1000-01-01 00:00:00.000000');
 
 INSERT INTO fitnesses(workout,weight,sets,reps,time,day,userid,createdAt,updatedAt) VALUES
 ('Squats',135,1,8,1,1,1,'1000-01-01 00:00:00.000000','1000-01-01 00:00:00.000000'),

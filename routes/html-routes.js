@@ -1,4 +1,5 @@
 var path = require("path");
+var db = require("../models");
 
 // Routes
 // =============================================================
@@ -8,6 +9,8 @@ module.exports = function(app) {
 
   // index route loads view.html
   app.get("/", function(req, res) {
+    console.log(db);
+    console.log("hi");
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
@@ -18,6 +21,6 @@ module.exports = function(app) {
 
   // emi_test route loads emi_test.html
   app.get("/emi_test", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/test/emi_test/emi_index.html"));
+    res.sendFile(path.join(__dirname, "../public/test/emi_test/emi_everythingTracker.html"));
   });
 };

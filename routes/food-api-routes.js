@@ -9,7 +9,7 @@ module.exports = function(app) {
     }
     // Join the "users" table to include the user info
     db.food.findAll({
-      include: [db.User],
+    //   include: [db.User],
       where: query
     }).then(function(dbFood) {
       res.json(dbFood);
@@ -20,9 +20,9 @@ module.exports = function(app) {
   app.get("/api/food/:id", function(req, res) {
     // Join the "users" table to include the user info
     db.food.findOne({
-      include: {
-        model: db.User
-      },
+    //   include: {
+    //     model: db.User
+    //   },
       where: {
         id: req.params.id
       }

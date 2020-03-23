@@ -9,7 +9,7 @@ module.exports = function(app) {
     }
     // Join the "users" table to include the user info
     db.money.findAll({
-      include: [db.User],
+    //   include: [db.User],
       where: query
     }).then(function(dbMoney) {
       res.json(dbMoney);
