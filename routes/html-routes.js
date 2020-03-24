@@ -23,4 +23,28 @@ module.exports = function(app) {
   app.get("/emi_test", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/test/emi_test/emi_everythingTracker.html"));
   });
+  // app.get("/emi_test/:id", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/test/emi_test/emi_everythingTracker.html"));
+  // });
+
+  // // emi_test route loads emi_test.html
+  // app.get("/emi_dayData", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/test/emi_test/emi_dayData.html"));
+  // });
+
+  app.get("/everythingTracker/:id", function(req, res) {
+    db.user.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [
+        {model: db.fitness},
+        {model: db.food},
+        {model: db.money}
+      ]
+    }).then(function(dbUser) {
+      res.render("everythingTracker", dbUser);
+    });
+  });
+
 };
