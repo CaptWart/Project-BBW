@@ -82,7 +82,10 @@ passport.deserializeUser(function (user, done) {
 // Routes
 // =============================================================
 require("./routes/html-routes.js")(app);
-// require("./routes/api-routes.js")(app);
+require("./routes/user-api-routes")(app);
+require("./routes/fitness-api-routes")(app);
+require("./routes/food-api-routes")(app);
+require("./routes/money-api-routes")(app);
 
 // Auth0 Setup
 var userInViews = require('./lib/middleware/userInViews');
@@ -106,7 +109,7 @@ app.set("view engine", "handlebars");
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize.sync({ force: true }).then(function() {
+db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });

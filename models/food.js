@@ -4,5 +4,15 @@ module.exports = function(sequelize, DataTypes) {
     calories: DataTypes.INTEGER,
     day: DataTypes.INTEGER
   });
+
+  Food.associate = function(models) {
+    // A Food can't be created without a User due to the foreign key constraint
+    Food.belongsTo(models.user, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+
   return Food;
 };
