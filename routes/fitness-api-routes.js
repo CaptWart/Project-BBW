@@ -9,7 +9,7 @@ module.exports = function(app) {
     }
     // Join the "users" table to include the user info
     db.fitness.findAll({
-    //   include: [db.User],
+      include: [db.user],
       where: query
     }).then(function(dbFitness) {
       res.json(dbFitness);
@@ -20,9 +20,9 @@ module.exports = function(app) {
   app.get("/api/fitnesses/:id", function(req, res) {
     // Join the "users" table to include the user info
     db.fitness.findOne({
-    //   include: {
-    //     model: db.User
-    //   },
+      include: {
+        model: db.user
+      },
       where: {
         id: req.params.id
       }

@@ -4,11 +4,11 @@ module.exports = function(app) {
   // GET route for getting all of the users
   app.get("/api/users", function(req, res) {
     db.user.findAll({
-    //   include: [
-    //     {model: db.Fitness},
-    //     {model: db.Food},
-    //     {model: db.Money}
-    //   ]
+      include: [
+        {model: db.fitness},
+        {model: db.food},
+        {model: db.money}
+      ]
     }).then(function(dbUser) {
       res.json(dbUser);
     });
@@ -19,11 +19,11 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-    //   include: [
-    //     {model: db.Fitness},
-    //     {model: db.Food},
-    //     {model: db.Money}
-    //   ]
+      include: [
+        {model: db.fitness},
+        {model: db.food},
+        {model: db.money}
+      ]
     }).then(function(dbUser) {
       res.json(dbUser);
     });
