@@ -16,15 +16,30 @@ module.exports = function(app) {
     });
   });
 
-  // GET route for retrieving food by a single food
+  // // GET route for retrieving food by a single food
+  // app.get("/api/food/:id", function(req, res) {
+  //   // Join the "users" table to include the user info
+  //   db.food.findOne({
+  //     include: {
+  //       model: db.user
+  //     },
+  //     where: {
+  //       id: req.params.id
+  //     }
+  //   }).then(function(dbFood) {
+  //     res.json(dbFood);
+  //   });
+  // });
+
+  // GET route for retrieving all of the food by a single user
   app.get("/api/food/:id", function(req, res) {
     // Join the "users" table to include the user info
-    db.food.findOne({
+    db.food.findAll({
       include: {
         model: db.user
       },
       where: {
-        id: req.params.id
+        userId: req.params.id
       }
     }).then(function(dbFood) {
       res.json(dbFood);

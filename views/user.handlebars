@@ -1,7 +1,142 @@
-<h1>{{userProfile.displayName}}</h1>
 
-<h2>Cats that are not sleepy!</h2>
 
-<input type="button" value="Logout" onclick="window.location='http://localhost:3000/logout'">
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+     <h2> Hello {{userProfile.displayName}}</h2> 
+                    </br>
+              </br>
+              </br>
+              </br>
+                            </br>
+              </br>
+              </br>
+              </br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere felis ac diam fringilla, eget placerat urna lacinia. Quisque eu volutpat ipsum, nec tincidunt nulla. Integer non orci non ipsum hendrerit ultrices ac quis erat. Etiam nisi tortor, egestas rutrum arcu vel, commodo finibus lacus. Nam mollis mi in congue porta. Praesent diam odio, fringilla vel finibus eget, elementum ut arcu. Vestibulum efficitur sed leo sit amet finibus. Vivamus tristique vel lectus ac congue. Mauris non nibh enim. Pellentesque viverra lacus in erat malesuada vulputate. Aenean vestibulum gravida tincidunt. Aliquam lacus massa, elementum quis ex id, placerat elementum tortor. Phasellus ligula nunc, venenatis sit amet condimentum quis, vestibulum quis neque. Morbi diam enim, cursus pulvinar justo eu, tempor aliquet neque. Sed a blandit justo.
 
-<input type="button" value="tracker" onclick="window.location='http://localhost:3000/emi_test'">
+
+      <input type="button" value="Logout" onclick="window.location='http://localhost:3000/logout'">
+    </div>
+    <div class="col-8">
+          <div class="row">
+              <h1>Dashboard</h1>
+              </br>
+              </br>
+              </br>
+              </br>
+              Random
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere felis ac diam fringilla, eget placerat urna lacinia. Quisque eu volutpat ipsum, nec tincidunt nulla. Integer non orci non ipsum hendrerit ultrices ac quis erat. Etiam nisi tortor, egestas rutrum arcu vel, commodo finibus lacus. Nam mollis mi in congue porta. Praesent diam odio, fringilla vel finibus eget, elementum ut arcu. Vestibulum efficitur sed leo sit amet finibus. Vivamus tristique vel lectus ac congue. Mauris non nibh enim. Pellentesque viverra lacus in erat malesuada vulputate. Aenean vestibulum gravida tincidunt. Aliquam lacus massa, elementum quis ex id, placerat elementum tortor. Phasellus ligula nunc, venenatis sit amet condimentum quis, vestibulum quis neque. Morbi diam enim, cursus pulvinar justo eu, tempor aliquet neque. Sed a blandit justo.
+
+              Nulla volutpat elementum tortor, ut pellentesque nisi sagittis non. Proin varius, felis sit amet rhoncus gravida, orci elit tempor sapien, ut blandit orci felis ut purus. Integer sit amet sollicitudin elit, in rhoncus leo. Morbi lectus lectus, tempus nec eros ac, lacinia imperdiet nisi. Aliquam rutrum dui non tincidunt fringilla. Sed posuere congue massa, eu placerat dui. Nulla facilisis, metus vehicula pulvinar tincidunt, nisi velit elementum est, vitae accumsan turpis risus sit amet eros. Suspendisse finibus tristique nunc, a laoreet urna egestas et. In porta ante at nibh placerat, vel viverra purus eleifend. Cras ligula nibh, malesuada sit amet est eu, euismod venenatis sem. Vivamus efficitur massa in pellentesque euismod. Suspendisse non hendrerit nunc, vel eleifend lacus. Curabitur commodo elit sed dui mollis, in ultricies urna pretium. Fusce velit massa, pretium id mi vel, laoreet blandit libero.
+
+              Quisque malesuada mauris sit amet finibus eleifend. Sed id mi non lacus tempor rutrum. Nullam scelerisque dignissim suscipit. Curabitur hendrerit arcu eu ante sollicitudin ultrices. Mauris condimentum, justo in fringilla pulvinar, enim lorem maximus purus, quis dictum mi massa efficitur metus. Aenean nisi turpis, porta et ultricies a, lacinia eu odio. Quisque ut ex elementum, placerat ipsum vitae, aliquam arcu. Nam porta velit in vestibulum tempus. Etiam ac pu
+          </div>
+
+              <!--              EMI THING                  --> 
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            
+            <div id="everythingTracker" class="m-4">
+                <h1>DAYS</h1><br>
+                <div class="form-group">
+                    <label for="numDays">Days to Track</label>
+                    <input id="numDays" type="text" class="form-control rounded input-el" name="numDays">
+                    <button id="numDaysBtn" type="submit" class="btn btn-primary btn-rounded btn-sm m-4" >Submit</button>
+                </div>
+                <div id="dayBtnDiv">
+
+                </div>
+            </div>
+
+            <div id="dayModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Day 1</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        
+                            <nav>
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-money-tab" data-toggle="tab" href="#nav-money" role="tab" aria-controls="nav-money" aria-selected="true">Money</a>
+                                    <a class="nav-item nav-link" id="nav-fitness-tab" data-toggle="tab" href="#nav-fitness" role="tab" aria-controls="nav-fitness" aria-selected="false">Fitness</a>
+                                    <a class="nav-item nav-link" id="nav-food-tab" data-toggle="tab" href="#nav-food" role="tab" aria-controls="nav-food" aria-selected="false">Food</a>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <!-- Money -->
+                                <div class="tab-pane fade show active" id="nav-money" role="tabpanel" aria-labelledby="nav-money-tab">
+                                    <table class="table table-bordered table-responsive-md table-striped text-center">
+                                    <thead>
+                                        <tr>
+                                        <th class="text-center">Item</th>
+                                        <th class="text-center">Cost</th>
+                                        <th class="text-center"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="moneyTable">
+                                        <!-- money table data goes here -->
+                                    </tbody>
+                                    </table>
+                                </div>
+                            
+                                <!-- Fitness -->
+                                <div class="tab-pane fade" id="nav-fitness" role="tabpanel" aria-labelledby="nav-fitness-tab">
+                                    <table class="table table-bordered table-responsive-md table-striped text-center">
+                                    <thead>
+                                        <tr>
+                                        <th class="text-center">Workout</th>
+                                        <th class="text-center">Weight</th>
+                                        <th class="text-center">Sets</th>
+                                        <th class="text-center">Reps</th>
+                                        <th class="text-center">Time(mins)</th>
+                                        <th class="text-center"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="fitnessTable">
+                                        <!-- fitness table data goes here -->
+                                    </tbody>
+                                    </table>
+                                </div>
+                        
+                                <!-- Food -->
+                                <div class="tab-pane fade" id="nav-food" role="tabpanel" aria-labelledby="nav-food-tab">
+                                    <table class="table table-bordered table-responsive-md table-striped text-center">
+                                    <thead>
+                                        <tr>
+                                        <th class="text-center">Item</th>
+                                        <th class="text-center">Calorie</th>
+                                        <th class="text-center"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="foodTable">
+                                        <!-- food table data goes here -->
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="../../assets/js/everythingTracker.js"></script>
+            <!-- <script src="../../assets//js/dayData.js"></script> -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+                        <!--              fasdfasdfsa                  --> 
+
+    <!--              fasdfasdfsa                  --> 
+              <input type="button" value="tracker" onclick="window.location='http://localhost:3000/emi_test'">      
+          </div>
+    </div>
+  </div>
+</div>
+
+
