@@ -1,8 +1,10 @@
 $(function() {
-  const url = new URL(window.location.href);
-  const user = parseInt(url.searchParams.get("user"));
-  const day = parseInt(url.searchParams.get("day"));
-  console.log(`user: ${user}, day: ${day}`);
+//   const url = new URL(window.location.href);
+//   const user = parseInt(url.searchParams.get("user"));
+//   const day = parseInt(url.searchParams.get("day"));
+//   console.log(`user: ${user}, day: ${day}`);
+  const user = 1; //temporal
+  const day = 4; //temporal
 
   function getMoney() {
     $.get("/api/money", function(data) {

@@ -16,15 +16,30 @@ module.exports = function(app) {
     });
   });
 
-  // GET route for retrieving fitnesses by a single fitness
+  // // GET route for retrieving fitnesses by a single fitness
+  // app.get("/api/fitnesses/:id", function(req, res) {
+  //   // Join the "users" table to include the user info
+  //   db.fitness.findOne({
+  //     include: {
+  //       model: db.user
+  //     },
+  //     where: {
+  //       id: req.params.id
+  //     }
+  //   }).then(function(dbFitness) {
+  //     res.json(dbFitness);
+  //   });
+  // });
+
+  // GET route for retrieving all of the fitnesses by a single user
   app.get("/api/fitnesses/:id", function(req, res) {
     // Join the "users" table to include the user info
-    db.fitness.findOne({
+    db.fitness.findAll({
       include: {
         model: db.user
       },
       where: {
-        id: req.params.id
+        userId: req.params.id
       }
     }).then(function(dbFitness) {
       res.json(dbFitness);

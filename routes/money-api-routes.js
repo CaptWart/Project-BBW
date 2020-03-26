@@ -17,14 +17,29 @@ module.exports = function(app) {
   });
 
   // GET route for retrieving money by a single money
+  // app.get("/api/money/:id", function(req, res) {
+  // // Join the "users" table to include the user info
+  //   db.money.findOne({
+  //     include: {
+  //       model: db.user
+  //     },
+  //     where: {
+  //       id: req.params.id
+  //     }
+  //   }).then(function(dbMoney) {
+  //     res.json(dbMoney);
+  //   });
+  // });
+
+  // GET route for retrieving all of the money by a single user
   app.get("/api/money/:id", function(req, res) {
     // Join the "users" table to include the user info
-    db.money.findOne({
+    db.money.findAll({
       include: {
         model: db.user
       },
       where: {
-        id: req.params.id
+        userID: req.params.id
       }
     }).then(function(dbMoney) {
       res.json(dbMoney);
