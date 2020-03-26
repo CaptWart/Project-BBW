@@ -1,20 +1,20 @@
 const db = require("../models");
 
 module.exports = function(app) {
-  // GET route for getting all of the food by all users
-  app.get("/api/food", function(req, res) {
-    const query = {};
-    if (req.query.user_id) {
-      query.UserId = req.query.user_id;
-    }
-    // Join the "users" table to include the user info
-    db.food.findAll({
-      include: [db.user],
-      where: query
-    }).then(function(dbFood) {
-      res.json(dbFood);
-    });
-  });
+  // // GET route for getting all of the food by all users
+  // app.get("/api/food", function(req, res) {
+  //   const query = {};
+  //   if (req.query.user_id) {
+  //     query.UserId = req.query.user_id;
+  //   }
+  //   // Join the "users" table to include the user info
+  //   db.food.findAll({
+  //     include: [db.user],
+  //     where: query
+  //   }).then(function(dbFood) {
+  //     res.json(dbFood);
+  //   });
+  // });
 
   // // GET route for retrieving food by a single food
   // app.get("/api/food/:id", function(req, res) {
@@ -32,14 +32,15 @@ module.exports = function(app) {
   // });
 
   // GET route for retrieving all of the food by a single user
-  app.get("/api/food/:id", function(req, res) {
+  app.get("/api/food", function(req, res) {
     // Join the "users" table to include the user info
     db.food.findAll({
       include: {
         model: db.user
       },
       where: {
-        userId: req.params.id
+        userId: req.query.userId,
+        day: req.query.day
       }
     }).then(function(dbFood) {
       res.json(dbFood);
@@ -54,10 +55,10 @@ module.exports = function(app) {
   });
 
   // DELETE route for deleting food
-  app.delete("/api/food/:id", function(req, res) {
+  app.delete("/api/food", function(req, res) {
     db.food.destroy({
       where: {
-        id: req.params.id
+        id: req.body.id
       }
     }).then(function(dbFood) {
       res.json(dbFood);
