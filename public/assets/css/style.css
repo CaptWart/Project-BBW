@@ -1,0 +1,11 @@
+.dayBtn {
+    border-radius: 0;
+}
+
+.modal-body {
+    overflow: auto;
+}
+
+td {
+    padding: 4px !important;
+}

@@ -2,289 +2,373 @@ $(function() {
   // const url = new URL(window.location.href);
   // const userID = url.searchParams.get("user");
   // const userID = parseInt(url.searchParams.get("id"));
-  const userID = 1;
-  let dayNum = 1;
+  const userID = 2;
+  let dayNum;
 
+  // Submit button (to enter the days) event handler
   $("#numDaysBtn").on("click", function() {
+    $("#dayBtnDiv").empty();
     const numDays = parseInt($("#numDays").val());
     for(let i = 1; i <= numDays; i++) {
       const dayBtn = $("<button>");
 
-      // dayBtn.addClass("dayBtn btn btn-primary btn-rounded btn-sm m-2").attr({type: "button", "data-num": i, "data-toggle": "modal", "data-target": "#dayModal"}).text(`Day ${i}`);
-
-      dayBtn.addClass("dayBtn btn btn-primary btn-rounded btn-sm m-2").attr({type: "button", "data-num": i}).text(`Day ${i}`);
+      dayBtn.addClass("dayBtn btn btn-sm btn-outline-secondary col-xs-12 col-sm-12 col-md-1 col-lg-1").attr({type: "button", "data-num": i}).text(`Day ${i}`);
 
       $("#dayBtnDiv").append(dayBtn);
     }
   });
 
+  // Day(#) button event handler
   $(document).on("click", ".dayBtn", function() {
-    // Redirect to the data page with the user ID and the value of data-num (day #)
-    // const user = `user=${userID}`;
-    // const day = `day=${$(this).data("num")}`;
     dayNum = $(this).data("num");
-
-    console.log("userID:", userID);
-    console.log("typeof userID:", typeof userID);
-    console.log("dayNum:", dayNum);
-    console.log("typeof dayNum:", typeof dayNum);
+    $(".modal-title").text(`Day ${dayNum}`);
+    resetMoneyTable(); // Create money table
+    resetFitnessTable(); // Create fitness table
+    resetFoodTable(); // Create food table
 
     $("#dayModal").modal("show");
-    // window.location.href = `./emi_dayData.html?${user}&${day}`;
   });
 
-  // Code for dayData modal
-  // Display the user's "money" data on the table
-  function displayMoneyTable() {
-    $.get(`/api/money/${userID}`, function(data) {
+  // Reset Money Table
+  function resetMoneyTable() {
+    $("#moneyTable").empty();
+    createMoneyTable();
+  }
+
+  // Reset Fitness Table
+  function resetFitnessTable() {
+    $("#fitnessTable").empty();
+    createFitnessTable();
+  }
+
+  // Reset Food Table
+  function resetFoodTable() {
+    $("#foodTable").empty();
+    createFoodTable();
+  }
+
+  // Create the user's "money" data on the table
+  function createMoneyTable() {
+    const data = {
+      userId: userID,
+      day: dayNum
+    };
+    // Send the GET request
+    $.get("/api/money", data, function(data) {
       const numMoney = data.length;
-      let rowCount = 1;
-      if(numMoney > 0) {
-        data.forEach(item => {
+      if(numMoney > 0) { // If data already exists
+        data.forEach(item => { // Create rows of existing data
           const moneyRow = `
           <tr>
-          <td data-num=${rowCount} class="itemData" contenteditable="true">${item.item}</td>
-          <td data-num=${rowCount} class="priceData" contenteditable="true">${item.price}</td>
-          <td>
-              <span class="table-add float-right mb-3 mr-2">
-                  <a href="#!" class="text-success">
-                      <i data-num=${rowCount} class="addMoney fas fa-plus fa-2x" aria-hidden="true"></i>
-                  </a>
-              </span>
-          </td>
-          <td>
-              <span class="table-remove">
-                  <button data-num=${rowCount} type="button"
-                  class="btn btn-danger btn-rounded btn-sm my-0">
-                  Remove</button>
-              </span>
-          </td>
+            <td data-id=${item.id} class="itemData" contenteditable="true">${item.item}</td>
+            <td data-id=${item.id} class="priceData" contenteditable="true">${item.price}</td>
+            <td>
+                <span class="table-add float-right">
+                    <a href="#!" class="text-success">
+                        <i data-id=${item.id} class="addMoney fas fa-plus fa-2x" aria-hidden="true"></i>
+                    </a>
+                </span>
+            </td>
+            <td>
+                <span class="table-remove">
+                    <button data-id=${item.id} type="button"
+                    class="removeMoney btn btn-danger btn-rounded btn-sm my-0">
+                    Remove</button>
+                </span>
+            </td>
           </tr>`;
           $("#moneyTable").append(moneyRow);
-          rowCount++;
         });
       }
-    });
-  }
-
-  // Display the user's "fitenss" data on the table
-  function displayFitnessTable() {
-    $.get(`/api/fitnesses/${userID}`, function(data) {
-      const numFitness = data.length;
-      let rowCount = 1;
-      if(numFitness > 0) {
-        data.forEach(item => {
-          const fitnessRow = `
-          <tr>
-          <td data-num=${rowCount} class="workoutData" contenteditable="true">${item.workout}</td>
-          <td data-num=${rowCount} class="weightData" contenteditable="true">${item.weight}</td>
-          <td data-num=${rowCount} class="setsData" contenteditable="true">${item.sets}</td>
-          <td data-num=${rowCount} class="repsData" contenteditable="true">${item.reps}</td>
-          <td data-num=${rowCount} class="timeData" contenteditable="true">${item.time}</td>
+      // New (empty) row for data entry. Set the data-id attribute value to 0.
+      const newMoneyRow = `
+        <tr>
+          <td data-id="0" class="itemData" contenteditable="true"></td>
+          <td data-id="0" class="priceData" contenteditable="true"></td>
           <td>
-              <span class="table-add float-right mb-3 mr-2">
+              <span class="table-add float-right">
                   <a href="#!" class="text-success">
-                      <i data-num=${rowCount} class="addFitness fas fa-plus fa-2x" aria-hidden="true"></i>
+                      <i data-id="0" class="addMoney fas fa-plus fa-2x" aria-hidden="true"></i>
                   </a>
               </span>
           </td>
           <td>
-              <span class="table-remove">
-                  <button data-num=${rowCount} type="button"
-                  class="btn btn-danger btn-rounded btn-sm my-0">
-                  Remove</button>
-              </span>
-          </td>`;
-          $("#fitnessTable").append(fitnessRow);
-          rowCount++;
-        });
-      }
+          </td>
+        </tr>`;
+      $("#moneyTable").append(newMoneyRow);
     });
   }
 
-  // Display the user's "food" data on the table
-  function displayFoodTable() {
-    $.get(`/api/food/${userID}`, function(data) {
+  // Create the user's "fitenss" data on the table
+  function createFitnessTable() {
+    const data = {
+      userId: userID,
+      day: dayNum
+    };
+    // Send the GET request
+    $.get("/api/fitnesses", data, function(data) {
+      const numFitness = data.length;
+      if(numFitness > 0) { // If data already exists
+        data.forEach(item => { // Create rows of existing data
+          const fitnessRow = `
+          <tr>
+            <td data-id=${item.id} class="workoutData" contenteditable="true">${item.workout}</td>
+            <td data-id=${item.id} class="weightData" contenteditable="true">${item.weight}</td>
+            <td data-id=${item.id} class="setsData" contenteditable="true">${item.sets}</td>
+            <td data-id=${item.id} class="repsData" contenteditable="true">${item.reps}</td>
+            <td data-id=${item.id} class="timeData" contenteditable="true">${item.time}</td>
+            <td>
+                <span class="table-add float-right">
+                    <a href="#!" class="text-success">
+                        <i data-id=${item.id} class="addFitness fas fa-plus fa-2x" aria-hidden="true"></i>
+                    </a>
+                </span>
+            </td>
+            <td>
+                <span class="table-remove">
+                    <button data-id=${item.id} type="button"
+                    class="removeFitness btn btn-danger btn-rounded btn-sm my-0">
+                    Remove</button>
+                </span>
+            </td>
+          </tr>`;
+          $("#fitnessTable").append(fitnessRow);
+        });
+      }
+      // New (empty) row for data entry. Set the data-id attribute value to 0.
+      const newFitnessRow = `                
+      <tr>
+        <td data-id="0" class="workoutData" contenteditable="true"></td>
+        <td data-id="0" class="weightData" contenteditable="true"></td>
+        <td data-id="0" class="setsData" contenteditable="true"></td>
+        <td data-id="0" class="repsData" contenteditable="true"></td>
+        <td data-id="0" class="timeData" contenteditable="true"></td>
+        <td>
+            <span class="table-add float-right">
+                <a href="#!" class="text-success">
+                    <i data-id="0" class="addFitness fas fa-plus fa-2x" aria-hidden="true"></i>
+                </a>
+            </span>
+        </td>
+        <td>
+        </td>
+      </tr>`;
+      $("#fitnessTable").append(newFitnessRow);
+    });
+  }
+
+  // Create the user's "food" data on the table
+  function createFoodTable() {
+    const data = {
+      userId: userID,
+      day: dayNum
+    };
+    // Send the GET request
+    $.get("/api/food", data, function(data) {
       const numFood = data.length;
-      let rowCount = 1;
       if(numFood > 0) {
         data.forEach(item => {
           const foodRow = `
           <tr>
-          <td data-num=${rowCount} class="itemData" contenteditable="true">${item.item}</td>
-          <td data-num=${rowCount} class="calorieData" contenteditable="true">${item.calories}</td>
-          <td>
-              <span class="table-add float-right mb-3 mr-2">
-                  <a href="#!" class="text-success">
-                      <i data-num=${rowCount} class="addFood fas fa-plus fa-2x" aria-hidden="true"></i>
-                  </a>
-              </span>
-          </td>
-          <td>
-              <span class="table-remove">
-                  <button data-num=${rowCount} type="button"
-                  class="btn btn-danger btn-rounded btn-sm my-0">
-                  Remove</button>
-              </span>
-          </td>
+            <td data-id=${item.id} class="itemData" contenteditable="true">${item.item}</td>
+            <td data-id=${item.id} class="calorieData" contenteditable="true">${item.calories}</td>
+            <td>
+                <span class="table-add float-right">
+                    <a href="#!" class="text-success">
+                        <i data-id=${item.id} class="addFood fas fa-plus fa-2x" aria-hidden="true"></i>
+                    </a>
+                </span>
+            </td>
+            <td>
+                <span class="table-remove">
+                    <button data-id=${item.id} type="button"
+                    class="removeFood btn btn-danger btn-rounded btn-sm my-0">
+                    Remove</button>
+                </span>
+            </td>
           </tr>`;
           $("#foodTable").append(foodRow);
-          rowCount++;
         });
       }
-    });
-  }
-
-  function generateNewMoneyRow() {
-    // $.get("/api/money", function(data) {
-    $.get(`/api/money/${userID}`, function(data) {
-      const numMoney = data.length + 1;
-      const moneyRow = `
+      // New (empty) row for data entry. Set the data-id attribute value to 0.
+      const newFoodRow = `
       <tr>
-      <td data-num=${numMoney} class="itemData" contenteditable="true"></td>
-      <td data-num=${numMoney} class="priceData" contenteditable="true"></td>
-      <td>
-          <span class="table-add float-right mb-3 mr-2">
-              <a href="#!" class="text-success">
-                  <i data-num=${numMoney} class="addMoney fas fa-plus fa-2x" aria-hidden="true"></i>
-              </a>
-          </span>
-      </td>
-      <td>
-          <span class="table-remove">
-              <button data-num=${numMoney} type="button"
-              class="btn btn-danger btn-rounded btn-sm my-0">
-              Remove</button>
-          </span>
-      </td>
+        <td data-id="0" class="itemData" contenteditable="true"></td>
+        <td data-id="0" class="calorieData" contenteditable="true"></td>
+        <td>
+            <span class="table-add float-right">
+                <a href="#!" class="text-success">
+                    <i data-id="0" class="addFood fas fa-plus fa-2x" aria-hidden="true"></i>
+                </a>
+            </span>
+        </td>
+        <td>
+        </td>
       </tr>`;
-      $("#moneyTable").append(moneyRow);
+      $("#foodTable").append(newFoodRow);
     });
   }
 
-  function generateNewFitnessRow() {
-    // $.get("/api/fitnesses", function(data) {
-    $.get(`/api/fitnesses/${userID}`, function(data) {
-      const numFitnesses = data.length + 1;
-      const fitnessRow = `                
-      <tr>
-      <td data-num=${numFitnesses} class="workoutData" contenteditable="true"></td>
-      <td data-num=${numFitnesses} class="weightData" contenteditable="true"></td>
-      <td data-num=${numFitnesses} class="setsData" contenteditable="true"></td>
-      <td data-num=${numFitnesses} class="repsData" contenteditable="true"></td>
-      <td data-num=${numFitnesses} class="timeData" contenteditable="true"></td>
-      <td>
-          <span class="table-add float-right mb-3 mr-2">
-              <a href="#!" class="text-success">
-                  <i data-num=${numFitnesses} class="addFitness fas fa-plus fa-2x" aria-hidden="true"></i>
-              </a>
-          </span>
-      </td>
-      <td>
-          <span class="table-remove">
-              <button data-num=${numFitnesses} type="button"
-              class="btn btn-danger btn-rounded btn-sm my-0">
-              Remove</button>
-          </span>
-      </td>`;
-      $("#fitnessTable").append(fitnessRow);
-    });
-  }
-
-  function generateNewFoodRow() {
-    // $.get("/api/food", function(data) {
-    $.get(`/api/food/${userID}`, function(data) {
-      const numFood = data.length + 1;
-      const FoodRow = `
-      <tr>
-      <td data-num=${numFood} class="itemData" contenteditable="true"></td>
-      <td data-num=${numFood} class="calorieData" contenteditable="true"></td>
-      <td>
-          <span class="table-add float-right mb-3 mr-2">
-              <a href="#!" class="text-success">
-                  <i data-num=${numFood} class="addFood fas fa-plus fa-2x" aria-hidden="true"></i>
-              </a>
-          </span>
-      </td>
-      <td>
-          <span class="table-remove">
-              <button data-num=${numFood} type="button"
-              class="btn btn-danger btn-rounded btn-sm my-0">
-              Remove</button>
-          </span>
-      </td>
-      </tr>`;
-      $("#foodTable").append(FoodRow);
-    });
-  }
-
-  displayMoneyTable();
-  displayFitnessTable();
-  displayFoodTable();
-  generateNewMoneyRow();
-  generateNewFitnessRow();
-  generateNewFoodRow();
-
-  // Add (POST) money
+  // Add (POST) / Update (PUT) money
   $(document).on("click", ".addMoney", function() {
-    const dataNum = $(this).data("num");
-    const itemData = $(`.itemData[data-num=${dataNum}]`).text();
-    const priceData = $(`.priceData[data-num=${dataNum}]`).text();
+    const dataID = $(this).data("id");
+    const itemData = $(`.itemData[data-id=${dataID}]`).text().trim();
+    const priceData = $(`.priceData[data-id=${dataID}]`).text().trim();
 
-    const newMoney = {
-      item: itemData,
-      price: priceData,
-      day: dayNum,
-      userId: userID
-    };
+    // if(itemData === "" || priceData === "") {
 
-    $.post("/api/money", newMoney, function(data) {
-      console.log("data posted: ", data);
-      generateNewMoneyRow();
-    });
+    // }
+
+    if(dataID === 0) {
+      const newMoney = {
+        item: itemData,
+        price: priceData,
+        day: dayNum,
+        userId: userID
+      };
+      // Send the POST request
+      $.post("/api/money", newMoney, function(data) {
+        console.log("data posted: ", data);
+        resetMoneyTable();
+      });
+    } else {
+      const updatedData = {
+        id: dataID,
+        item: itemData,
+        price: priceData
+      };
+      // Send the PUT request
+      $.ajax("/api/money", {
+        type: "PUT",
+        data: updatedData
+      }).then(function(data) {
+        console.log("data updated: ", data);
+      });
+    }
   });
 
-  // Add (POST) fitness
+  // Add (POST) / Update (PUT) fitness
   $(document).on("click", ".addFitness", function() {
-    const dataNum = $(this).data("num");
-    const workoutData = $(`.workoutData[data-num=${dataNum}]`).text();
-    const weightData = $(`.weightData[data-num=${dataNum}]`).text();
-    const setsData = $(`.setsData[data-num=${dataNum}]`).text();
-    const repsData = $(`.repsData[data-num=${dataNum}]`).text();
-    const timeData = $(`.timeData[data-num=${dataNum}]`).text();
+    const dataID = $(this).data("id");
+    const workoutData = $(`.workoutData[data-id=${dataID}]`).text();
+    const weightData = $(`.weightData[data-id=${dataID}]`).text();
+    const setsData = $(`.setsData[data-id=${dataID}]`).text();
+    const repsData = $(`.repsData[data-id=${dataID}]`).text();
+    const timeData = $(`.timeData[data-id=${dataID}]`).text();
 
-    const newFitness = {
-      workout: workoutData,
-      weight: weightData,
-      sets: setsData,
-      reps: repsData,
-      time: timeData,
-      day: dayNum,
-      userId: userID
+    if(dataID === 0) {
+      const newFitness = {
+        workout: workoutData,
+        weight: weightData,
+        sets: setsData,
+        reps: repsData,
+        time: timeData,
+        day: dayNum,
+        userId: userID
+      };
+      // Send the POST request
+      $.post("/api/fitnesses", newFitness, function(data) {
+        console.log("data posted: ", data);
+        resetFitnessTable();
+      });
+    } else {
+      const updatedData = {
+        id: dataID,
+        workout: workoutData,
+        weight: weightData,
+        sets: setsData,
+        reps: repsData,
+        time: timeData
+      };
+      // Send the PUT request
+      $.ajax("/api/fitnesses", {
+        type: "PUT",
+        data: updatedData
+      }).then(function(data) {
+        console.log("data updated: ", data);
+      });
+    }
+  });
+
+  // Add (POST) / Update (PUT) food
+  $(document).on("click", ".addFood", function() {
+    const dataID = $(this).data("id");
+    const itemData = $(`.itemData[data-id=${dataID}]`).text();
+    const caloriesData = $(`.calorieData[data-id=${dataID}]`).text();
+
+    if(dataID === 0) {
+      const newFood = {
+        item: itemData,
+        calories: caloriesData,
+        day: dayNum,
+        userId: userID
+      };
+      // Send the POST request
+      $.post("/api/food", newFood, function(data) {
+        console.log("data posted: ", data);
+        resetFoodTable();
+      });
+    } else {
+      const updatedData = {
+        id: dataID,
+        item: itemData,
+        calories: caloriesData
+      };
+      // Send the PUT request
+      $.ajax("/api/food", {
+        type: "PUT",
+        data: updatedData
+      }).then(function(data) {
+        console.log("data updated: ", data);
+      });
+    }
+  });
+
+  // Remove (DELETE) money
+  $(document).on("click", ".removeMoney", function() {
+    const dataID = $(this).data("id");
+    const deleteData = {
+      id: dataID
     };
-
-    $.post("/api/fitnesses", newFitness, function(data) {
-      console.log("data posted: ", data);
-      generateNewFitnessRow();
+    // Send the DELETE request
+    $.ajax("/api/money", {
+      type: "DELETE",
+      data: deleteData
+    }).then(function() {
+      console.log("data deleted: ", deleteData);
+      resetMoneyTable();
     });
   });
 
-  // Add (POST) food
-  $(document).on("click", ".addFood", function() {
-    const dataNum = $(this).data("num");
-    const itemData = $(`.itemData[data-num=${dataNum}]`).text();
-    const caloriesData = $(`.calorieData[data-num=${dataNum}]`).text();
-
-    const newFood = {
-      item: itemData,
-      calories: caloriesData,
-      day: dayNum,
-      userId: userID
+  // Remove (DELETE) fitness
+  $(document).on("click", ".removeFitness", function() {
+    const dataID = $(this).data("id");
+    const deleteData = {
+      id: dataID
     };
+    // Send the DELETE request
+    $.ajax("/api/fitnesses", {
+      type: "DELETE",
+      data: deleteData
+    }).then(function() {
+      console.log("data deleted: ", deleteData);
+      resetFitnessTable();
+    });
+  });
 
-    $.post("/api/food", newFood, function(data) {
-      console.log("data posted: ", data);
-      generateNewFoodRow();
+  // Remove (DELETE) food
+  $(document).on("click", ".removeFood", function() {
+    const dataID = $(this).data("id");
+    const deleteData = {
+      id: dataID
+    };
+    // Send the DELETE request
+    $.ajax("/api/food", {
+      type: "DELETE",
+      data: deleteData
+    }).then(function() {
+      console.log("data deleted: ", deleteData);
+      resetFoodTable();
     });
   });
 });
