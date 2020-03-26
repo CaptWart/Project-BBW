@@ -32,19 +32,20 @@ module.exports = function(app) {
   //   res.sendFile(path.join(__dirname, "../public/test/emi_test/emi_dayData.html"));
   // });
 
-  app.get("/everythingTracker/:id", function(req, res) {
-    db.user.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [
-        {model: db.fitness},
-        {model: db.food},
-        {model: db.money}
-      ]
-    }).then(function(dbUser) {
-      res.render("everythingTracker", dbUser);
-    });
+  app.get("/everythingTracker", function(req, res) {
+    // db.user.findOne({
+    //   where: {
+    //     id: req.params.id
+    //   },
+    //   include: [
+    //     {model: db.fitness},
+    //     {model: db.food},
+    //     {model: db.money}
+    //   ]
+    // }).then(function(dbUser) {
+    //   res.render("everythingTracker", dbUser);
+    // });
+    res.render("everythingTracker");
   });
 
 };
