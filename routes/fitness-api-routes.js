@@ -67,13 +67,11 @@ module.exports = function(app) {
 
   // PUT route for updating fitness
   app.put("/api/fitnesses", function(req, res) {
-    db.fitness.update(
-      req.body,
-      {
-        where: {
-          id: req.body.id
-        }
-      }).then(function(dbFitness) {
+    db.fitness.update(req.body,{
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbFitness) {
       res.json(dbFitness);
     });
   });

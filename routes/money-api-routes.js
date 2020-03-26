@@ -68,13 +68,11 @@ module.exports = function(app) {
 
   // PUT route for updating Money
   app.put("/api/money", function(req, res) {
-    db.money.update(
-      req.body,
-      {
-        where: {
-          id: req.body.id
-        }
-      }).then(function(dbMoney) {
+    db.money.update(req.body,{
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbMoney) {
       res.json(dbMoney);
     });
   });
