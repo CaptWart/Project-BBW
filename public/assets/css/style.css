@@ -9,3 +9,49 @@
 td {
     padding: 4px !important;
 }
+
+
+img {
+    background-repeat: no-repeat;
+    position: fixed;
+ 
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out 0s;
+    box-sizing: border-box;
+
+}
+
+#overlay {
+    position: fixed;
+    display: block;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    left: -50%;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+
+    transform: translateX(100%);
+    transition: transform 1s ease-in-out;
+
+  }
+  
+  #text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    
+  }
