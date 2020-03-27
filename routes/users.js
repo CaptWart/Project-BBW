@@ -8,9 +8,6 @@ var path = require("path");
 /* GET user profile. From Auth0*/
 router.get('/user', secured(), function (req, res, next) {
   const { _raw, _json, ...userProfile } = req.user;
-
-  console.log("UserId: " + userProfile.user_id)
-
   db.user.findOne({
     where: {
       auth0: userProfile.user_id
@@ -22,15 +19,22 @@ router.get('/user', secured(), function (req, res, next) {
         auth0: userProfile.user_id,
         email: userProfile.displayName
       }).then(newUser => {
-        console.log(`New user ${newUser.auth0}, with id ${newUser.email} has been created.`);
       });
+      // This is how I use handlebars
       res.render('create',{
         userProfile,
       });
     }
     else{
+      const userInfo = { 
+        id: dbUser.id,
+        firstname: dbUser.firstname,
+        lastname: dbUser.lastname,
+        description: dbUser.description
+      }
+          // This is how I use handlebars
       res.render('user', {
-        userProfile,
+        userInfo,
         title: 'Profile page'
       });
     }
@@ -39,11 +43,6 @@ router.get('/user', secured(), function (req, res, next) {
 
 });
 
-/* Get user profile from DB*/
-router.get('/userdb', function (req, res, next){
-
-
-})
 
 /* Add user information to DB*/
 router.post('/addprofile', function (req, res, next){
