@@ -31,6 +31,11 @@
                             <!-- money table data goes here -->
                         </tbody>
                         </table>
+                        <!-- alert start -->
+                        <div style="display:none" id="moneyAlert" class="alert alert-danger" role="alert">
+                            Both "Item" and "Price" (number) fields need to be filled correctly.
+                        </div>
+                        <!-- alert end -->
                     </div>
                 
                     <!-- Fitness -->
@@ -50,6 +55,11 @@
                             <!-- fitness table data goes here -->
                         </tbody>
                         </table>
+                        <!-- alert start -->
+                        <div style="display:none" id="fitnessAlert" class="alert alert-danger" role="alert">
+                            The "Workout" field needs to be filled. Other fields need to be numbers.
+                        </div>
+                        <!-- alert end -->
                     </div>
             
                     <!-- Food -->
@@ -58,7 +68,7 @@
                         <thead>
                             <tr>
                             <th class="text-center">Item</th>
-                            <th class="text-center">Calorie</th>
+                            <th class="text-center">Calories</th>
                             <th class="text-center"></th>
                             </tr>
                         </thead>
@@ -66,12 +76,16 @@
                             <!-- food table data goes here -->
                         </tbody>
                         </table>
+                        <!-- alert start -->
+                        <div style="display:none" id="foodAlert" class="alert alert-danger" role="alert">
+                            Both "Item" and "Calories" (number) fields need to be filled correctly.
+                        </div>
+                        <!-- alert end -->
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="modalCloseBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

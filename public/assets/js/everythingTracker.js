@@ -1,8 +1,5 @@
 $(function() {
-  // const url = new URL(window.location.href);
-  // const userID = url.searchParams.get("user");
-  // const userID = parseInt(url.searchParams.get("id"));
-  const userID = 2;
+  const userID = 1;
   let dayNum;
 
   // Submit button (to enter the days) event handler
@@ -12,7 +9,7 @@ $(function() {
     for(let i = 1; i <= numDays; i++) {
       const dayBtn = $("<button>");
 
-      dayBtn.addClass("dayBtn btn btn-sm btn-outline-secondary col-xs-12 col-sm-12 col-md-1 col-lg-1").attr({type: "button", "data-num": i}).text(`Day ${i}`);
+      dayBtn.addClass("dayBtn btn btn-sm col-xs-12 col-sm-12 col-md-1 col-lg-1").attr({type: "button", "data-num": i}).text(`Day ${i}`);
 
       $("#dayBtnDiv").append(dayBtn);
     }
@@ -72,7 +69,7 @@ $(function() {
             <td>
                 <span class="table-remove">
                     <button data-id=${item.id} type="button"
-                    class="removeMoney btn btn-danger btn-rounded btn-sm my-0">
+                    class="removeMoney btn btn-success btn-rounded btn-sm my-0">
                     Remove</button>
                 </span>
             </td>
@@ -127,7 +124,7 @@ $(function() {
             <td>
                 <span class="table-remove">
                     <button data-id=${item.id} type="button"
-                    class="removeFitness btn btn-danger btn-rounded btn-sm my-0">
+                    class="removeFitness btn btn-success btn-rounded btn-sm my-0">
                     Remove</button>
                 </span>
             </td>
@@ -171,7 +168,7 @@ $(function() {
           const foodRow = `
           <tr>
             <td data-id=${item.id} class="itemData" contenteditable="true">${item.item}</td>
-            <td data-id=${item.id} class="calorieData" contenteditable="true">${item.calories}</td>
+            <td data-id=${item.id} class="caloriesData" contenteditable="true">${item.calories}</td>
             <td>
                 <span class="table-add float-right">
                     <a href="#!" class="text-success">
@@ -182,7 +179,7 @@ $(function() {
             <td>
                 <span class="table-remove">
                     <button data-id=${item.id} type="button"
-                    class="removeFood btn btn-danger btn-rounded btn-sm my-0">
+                    class="removeFood btn btn-success btn-rounded btn-sm my-0">
                     Remove</button>
                 </span>
             </td>
@@ -194,7 +191,7 @@ $(function() {
       const newFoodRow = `
       <tr>
         <td data-id="0" class="itemData" contenteditable="true"></td>
-        <td data-id="0" class="calorieData" contenteditable="true"></td>
+        <td data-id="0" class="caloriesData" contenteditable="true"></td>
         <td>
             <span class="table-add float-right">
                 <a href="#!" class="text-success">
@@ -215,112 +212,140 @@ $(function() {
     const itemData = $(`.itemData[data-id=${dataID}]`).text().trim();
     const priceData = $(`.priceData[data-id=${dataID}]`).text().trim();
 
-    // if(itemData === "" || priceData === "") {
-
-    // }
-
-    if(dataID === 0) {
-      const newMoney = {
-        item: itemData,
-        price: priceData,
-        day: dayNum,
-        userId: userID
-      };
-      // Send the POST request
-      $.post("/api/money", newMoney, function(data) {
-        console.log("data posted: ", data);
-        resetMoneyTable();
-      });
+    if(itemData === "" || priceData === "" || isNaN(priceData)) {
+      console.log("itemData or priceData empty");
+      $("#moneyAlert").show();
     } else {
-      const updatedData = {
-        id: dataID,
-        item: itemData,
-        price: priceData
-      };
-      // Send the PUT request
-      $.ajax("/api/money", {
-        type: "PUT",
-        data: updatedData
-      }).then(function(data) {
-        console.log("data updated: ", data);
-      });
+      if(dataID === 0) {
+        const newMoney = {
+          item: itemData,
+          price: priceData,
+          day: dayNum,
+          userId: userID
+        };
+        // Send the POST request
+        $.post("/api/money", newMoney, function(data) {
+          console.log("data posted: ", data);
+          resetMoneyTable();
+        });
+      } else {
+        const updatedData = {
+          id: dataID,
+          item: itemData,
+          price: priceData
+        };
+        // Send the PUT request
+        $.ajax("/api/money", {
+          type: "PUT",
+          data: updatedData
+        }).then(function(data) {
+          console.log("data updated: ", data);
+        });
+      }
+      $("#moneyAlert").hide();
     }
   });
 
   // Add (POST) / Update (PUT) fitness
   $(document).on("click", ".addFitness", function() {
     const dataID = $(this).data("id");
-    const workoutData = $(`.workoutData[data-id=${dataID}]`).text();
-    const weightData = $(`.weightData[data-id=${dataID}]`).text();
-    const setsData = $(`.setsData[data-id=${dataID}]`).text();
-    const repsData = $(`.repsData[data-id=${dataID}]`).text();
-    const timeData = $(`.timeData[data-id=${dataID}]`).text();
+    let workoutData = $(`.workoutData[data-id=${dataID}]`).text().trim();
+    let weightData = $(`.weightData[data-id=${dataID}]`).text().trim();
+    let setsData = $(`.setsData[data-id=${dataID}]`).text().trim();
+    let repsData = $(`.repsData[data-id=${dataID}]`).text().trim();
+    let timeData = $(`.timeData[data-id=${dataID}]`).text().trim();
 
-    if(dataID === 0) {
-      const newFitness = {
-        workout: workoutData,
-        weight: weightData,
-        sets: setsData,
-        reps: repsData,
-        time: timeData,
-        day: dayNum,
-        userId: userID
-      };
-      // Send the POST request
-      $.post("/api/fitnesses", newFitness, function(data) {
-        console.log("data posted: ", data);
-        resetFitnessTable();
-      });
+    if(workoutData === "" || isNaN(weightData) || isNaN(setsData) || isNaN(repsData) || isNaN(timeData)) {
+      console.log("workoutData empty");
+      $("#fitnessAlert").show();
     } else {
-      const updatedData = {
-        id: dataID,
-        workout: workoutData,
-        weight: weightData,
-        sets: setsData,
-        reps: repsData,
-        time: timeData
-      };
-      // Send the PUT request
-      $.ajax("/api/fitnesses", {
-        type: "PUT",
-        data: updatedData
-      }).then(function(data) {
-        console.log("data updated: ", data);
-      });
+      if(weightData === "") {
+        console.log("here!!");
+        weightData = 0;
+      }
+      if(setsData === "") {
+        setsData = 0;
+      }
+      if(repsData === "") {
+        repsData = 0;
+      }
+      if(timeData === "") {
+        timeData = 0;
+      }
+
+      if(dataID === 0) {
+        const newFitness = {
+          workout: workoutData,
+          weight: weightData,
+          sets: setsData,
+          reps: repsData,
+          time: timeData,
+          day: dayNum,
+          userId: userID
+        };
+        // Send the POST request
+        $.post("/api/fitnesses", newFitness, function(data) {
+          console.log("data posted: ", data);
+          resetFitnessTable();
+        });
+      } else {
+        const updatedData = {
+          id: dataID,
+          workout: workoutData,
+          weight: weightData,
+          sets: setsData,
+          reps: repsData,
+          time: timeData
+        };
+        // Send the PUT request
+        $.ajax("/api/fitnesses", {
+          type: "PUT",
+          data: updatedData
+        }).then(function(data) {
+          console.log("data updated: ", data);
+        });
+      }
+      $("#fitnessAlert").hide();
     }
   });
 
   // Add (POST) / Update (PUT) food
   $(document).on("click", ".addFood", function() {
     const dataID = $(this).data("id");
-    const itemData = $(`.itemData[data-id=${dataID}]`).text();
-    const caloriesData = $(`.calorieData[data-id=${dataID}]`).text();
+    const itemData = $(`.itemData[data-id=${dataID}]`).text().trim();
+    const caloriesData = $(`.caloriesData[data-id=${dataID}]`).text().trim();
 
-    if(dataID === 0) {
-      const newFood = {
-        item: itemData,
-        calories: caloriesData,
-        day: dayNum,
-        userId: userID
-      };
-      // Send the POST request
-      $.post("/api/food", newFood, function(data) {
-        console.log("data posted: ", data);
-        resetFoodTable();
-      });
+    if(itemData === "" || caloriesData === "" || isNaN(caloriesData)) {
+      console.log("itemData or caloriesData empty");
+      $("#foodAlert").show();
     } else {
-      const updatedData = {
-        id: dataID,
-        item: itemData,
-        calories: caloriesData
-      };
-      // Send the PUT request
-      $.ajax("/api/food", {
-        type: "PUT",
-        data: updatedData
-      }).then(function(data) {
-        console.log("data updated: ", data);
-      });
+      if(dataID === 0) {
+        const newFood = {
+          item: itemData,
+          calories: caloriesData,
+          day: dayNum,
+          userId: userID
+        };
+        // Send the POST request
+        $.post("/api/food", newFood, function(data) {
+          console.log("data posted: ", data);
+          resetFoodTable();
+        });
+      } else {
+        const updatedData = {
+          id: dataID,
+          item: itemData,
+          calories: caloriesData
+        };
+        // Send the PUT request
+        $.ajax("/api/food", {
+          type: "PUT",
+          data: updatedData
+        }).then(function(data) {
+          console.log("data updated: ", data);
+        });
+      }
+      $("#foodAlert").hide();
     }
   });
 
