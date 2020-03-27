@@ -1,19 +1,53 @@
+#numDaysBtn {
+    background-color: #669E3C;
+}
+
 .dayBtn {
     border-radius: 0;
+    color:#302718;
+    background-color:transparent;
+    background-image:none;
+    border-color:#302718;
+}
+
+.dayBtn:hover {
+    color: #302718;
+    background-color:#C7AB59;
+    border-color: #302718;
+}
+
+.dayBtn:focus {
+    box-shadow:0 0 0 .2rem #DED2A8
 }
 
 .modal-body {
     overflow: auto;
 }
 
+.nav-tabs > a {
+    color: #302718;
+}
+
 td {
     padding: 4px !important;
 }
+
 body{
     background-color: #302718;
     color: white;
 }
 #imgbg {
+
+
+.removeMoney, .removeFitness, .removeFood {
+    background-color: #699E3C;
+}
+
+#modalCloseBtn {
+    background-color: #C7AB59;
+}
+
+img {
     background-repeat: no-repeat;
     position: fixed;
  
