@@ -5,19 +5,19 @@
 .dayBtn {
     border-radius: 0;
     color:#302718;
-    background-color:transparent;
+    background-color: #DED2A8;
+    border-color: #FFFFFF;
     background-image:none;
-    border-color:#302718;
 }
 
 .dayBtn:hover {
     color: #302718;
     background-color:#C7AB59;
-    border-color: #302718;
+    border-color: #FFFFFF;
 }
 
 .dayBtn:focus {
-    box-shadow:0 0 0 .2rem #DED2A8
+    box-shadow:0 0 0 .2rem #C7AB59
 }
 
 .modal-body {

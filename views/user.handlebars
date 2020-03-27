@@ -1,7 +1,7 @@
 <div class="container">
 
   <div id="dashboard">
-    <name="dataID" value={{userInfo.id}}> 
+    <span id="userId" data-id={{userInfo.id}}></span>
 
     <h2>Hello {{userInfo.firstname}} {{userInfo.lastname}}    <button class="buttons btn btn-primary my-2 my-sm-0" type="submit" 
     onclick="window.location='http://localhost:3000/logout'">Logout</button></h2> 
@@ -35,6 +35,6 @@
   </div>
 
   <!--              EMI THING                  -->
-  {{> everythingTracker}}
+  {{> everythingTracker }}
 
 </div>

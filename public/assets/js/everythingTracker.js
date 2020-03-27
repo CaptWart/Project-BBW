@@ -1,5 +1,5 @@
 $(function() {
-  const userID = 1;
+  const userID = $("#userId").data("id");
   let dayNum;
 
   // Submit button (to enter the days) event handler
