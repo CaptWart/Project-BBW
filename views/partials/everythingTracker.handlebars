@@ -1,13 +1,19 @@
-<div id="everythingTracker" class="m-4" data-userId={{userId}}>
+<div id="everythingTracker" class="m-4">
     <h1>Everything Tracker</h1><br>
-    <div class="form-group">
+    <div id="daysEntryForm" class="form-group">
         <label for="numDays">Days to Track</label>
         <input id="numDays" type="text" class="form-control rounded input-el" name="numDays">
 
-        <button id="numDaysBtn" type="submit" class="buttons btn btn-primary btn-rounded btn m-4">Submit</button>
+        <button id="numDaysBtn" type="submit" class="buttons btn btn-primary btn-rounded btn m-2">Submit</button>
+    </div>
+    <div style="display:none" id="daysAlert" class="alert alert-danger" role="alert">
+        Enter the "Days to Track" (at least 1).
+    </div>
+    <div id="daysEdit">
+        <button id="daysEditBtn" type="submit" class="buttons btn btn-primary btn-rounded btn m-2">Edit</button>
     </div>
     <div id="dayBtnDiv" class="row px-4">
-
+        <!-- day# buttons go here -->
     </div>
 
     {{> dayData }}

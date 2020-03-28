@@ -8,7 +8,8 @@ module.exports = function(sequelize, DataTypes) {
     lastname: DataTypes.STRING,
     email: DataTypes.STRING,
     description: DataTypes.STRING,
-    profile: DataTypes.BOOLEAN
+    profile: DataTypes.BOOLEAN,
+    days: DataTypes.INTEGER
   });
 
   // Associating User with Fitness, Food, and Money
