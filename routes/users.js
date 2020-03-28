@@ -36,7 +36,8 @@ router.get('/user', secured(), function (req, res, next) {
         id: dbUser.id,
         firstname: dbUser.firstname,
         lastname: dbUser.lastname,
-        description: dbUser.description
+        description: dbUser.description,
+        days: dbUser.days
       }
           // This is how I use handlebars
       res.render('user', {

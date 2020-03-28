@@ -2,17 +2,38 @@ $(function() {
   const userID = $("#userId").data("id");
   let dayNum;
 
+  start();
+
   // Submit button (to enter the days) event handler
   $("#numDaysBtn").on("click", function() {
     $("#dayBtnDiv").empty();
     const numDays = parseInt($("#numDays").val());
-    for(let i = 1; i <= numDays; i++) {
-      const dayBtn = $("<button>");
+    if(isNaN(numDays)) {
+      $("#daysAlert").show();
+    } else {
+      createDaysBtn(numDays);
 
-      dayBtn.addClass("dayBtn btn btn-sm col-xs-12 col-sm-12 col-md-1 col-lg-1").attr({type: "button", "data-num": i}).text(`Day ${i}`);
-
-      $("#dayBtnDiv").append(dayBtn);
+      const updatedData = {
+        id: userID,
+        days: numDays
+      };
+      // Send the PUT request
+      $.ajax("/api/users", {
+        type: "PUT",
+        data: updatedData
+      }).then(function(data) {
+        $("#daysEntryForm").hide();
+        $("#daysEdit").show();
+        console.log("the user's days updated: ", data);
+      });
+      $("#daysAlert").hide();
     }
+  });
+
+  // Edit button event handler
+  $("#daysEdit").on("click", function() {
+    $("#daysEntryForm").show();
+    $("#daysEdit").hide();
   });
 
   // Day(#) button event handler
@@ -25,6 +46,31 @@ $(function() {
 
     $("#dayModal").modal("show");
   });
+
+  function createDaysBtn(numDays) {
+    for(let i = 1; i <= numDays; i++) {
+      const dayBtn = $("<button>");
+
+      dayBtn.addClass("dayBtn btn btn-sm col-xs-12 col-sm-12 col-md-1 col-lg-1").attr({type: "button", "data-num": i}).text(`Day ${i}`);
+
+      $("#dayBtnDiv").append(dayBtn);
+    }
+  }
+
+  // work:
+  function start() {
+    $.get("/api/users/" + userID, function(data) {
+      const days = data.days;
+      if(days) { // if the tracking days have been set
+        $("#daysEntryForm").hide();
+        $("#daysEdit").show();
+        createDaysBtn(days);
+      } else { // if the tracking days have not been set
+        $("#daysEntryForm").show();
+        $("#daysEdit").hide();
+      }
+    });
+  }
 
   // Reset Money Table
   function resetMoneyTable() {
@@ -213,7 +259,6 @@ $(function() {
     const priceData = $(`.priceData[data-id=${dataID}]`).text().trim();
 
     if(itemData === "" || priceData === "" || isNaN(priceData)) {
-      console.log("itemData or priceData empty");
       $("#moneyAlert").show();
     } else {
       if(dataID === 0) {
@@ -256,7 +301,6 @@ $(function() {
     let timeData = $(`.timeData[data-id=${dataID}]`).text().trim();
 
     if(workoutData === "" || isNaN(weightData) || isNaN(setsData) || isNaN(repsData) || isNaN(timeData)) {
-      console.log("workoutData empty");
       $("#fitnessAlert").show();
     } else {
       if(weightData === "") {
@@ -316,7 +360,6 @@ $(function() {
     const caloriesData = $(`.caloriesData[data-id=${dataID}]`).text().trim();
 
     if(itemData === "" || caloriesData === "" || isNaN(caloriesData)) {
-      console.log("itemData or caloriesData empty");
       $("#foodAlert").show();
     } else {
       if(dataID === 0) {
