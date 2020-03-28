@@ -7,7 +7,14 @@ $(document).ready(function() {
       email: $("#email").val(),
       profile: true
     };
-    $.post("/addprofile", data, function(data, status){
-    });
+    if (data.firstname == '' || data.lastname == '' || data.description == ''){
+      $("#required").css("display", "block");
+    }
+    else {
+      $.post("/addprofile", data, function(data, status){
+      });
+      window.location='http://localhost:3000/user';
+    }
+
   });
 });
