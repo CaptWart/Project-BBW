@@ -25,7 +25,13 @@ router.get('/user', secured(), function (req, res, next) {
         userProfile,
       });
     }
-    else{
+    else if ( dbUser.profile != 1 ){
+      console.log(dbUser)
+      res.render('create',{
+        userProfile,
+      });
+    }
+      else{
       const userInfo = { 
         id: dbUser.id,
         firstname: dbUser.firstname,

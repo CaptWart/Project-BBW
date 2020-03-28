@@ -58,22 +58,6 @@ body{
     background-color: #C7AB59;
 }
 
-#imgCreate {
-    background-repeat: no-repeat;
-    position: fixed;
- 
-    left: 0;
-    top: 0;
-
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out 0s;
-    box-sizing: border-box;
-
-}
 
 #overlay {
     position: fixed;
@@ -142,7 +126,8 @@ body{
     }
 
     #dashboard {
-        background-color: #C7AB59;
+        background-color: #DED2A8;
+        color: black;
         height: 600px;
         width: 1080px;
         display: block;
