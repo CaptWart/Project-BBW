@@ -31,7 +31,7 @@ $(function() {
   });
 
   // Edit button event handler
-  $("#daysEdit").on("click", function() {
+  $("#daysEditBtn").on("click", function() {
     $("#daysEntryForm").show();
     $("#daysEdit").hide();
   });
