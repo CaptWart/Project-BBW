@@ -1,37 +1,3 @@
-#numDaysBtn {
-    background-color: #669E3C;
-}
-
-.dayBtn {
-    border-radius: 0;
-    color:#302718;
-    background-color: #DED2A8;
-    border-color: #FFFFFF;
-    background-image:none;
-}
-
-.dayBtn:hover {
-    color: #302718;
-    background-color:#C7AB59;
-    border-color: #FFFFFF;
-}
-
-.dayBtn:focus {
-    box-shadow:0 0 0 .2rem #C7AB59
-}
-
-.modal-body {
-    overflow: auto;
-}
-
-.nav-tabs > a {
-    color: #302718;
-}
-
-td {
-    padding: 4px !important;
-}
-
 body{
     background-color: #302718;
     color: white;
@@ -125,13 +91,57 @@ body{
         transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
 
-    #dashboard {
-        background-color: #DED2A8;
-        color: black;
-        height: 600px;
-        width: 1080px;
-        display: block;
-        margin-top: 40px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+#dataDisplay {
+    color: #302718;
+    background-color: #DED2A8;
+}
+
+#dataDisplay h2 {
+    font-size: 1em;
+}
+
+#dataDisplay .totalData {
+    font-size: 1.25em
+}
+
+#daysEntryForm label {
+    font-size: 1.5em;
+}
+
+#numDaysBtn {
+    background-color: #669E3C;
+}
+
+.dayBtn {
+    border-radius: 0;
+    color:#302718;
+    background-color: #DED2A8;
+    border-color: #FFFFFF;
+    background-image:none;
+}
+
+.dayBtn:hover {
+    color: #302718;
+    background-color:#C7AB59;
+    border-color: #FFFFFF;
+}
+
+.dayBtn:focus {
+    box-shadow:0 0 0 .2rem #C7AB59
+}
+
+.modal {
+    color: #302718;
+}
+
+.modal h1 {
+    font-size: 1.5em;
+}
+
+.modal-body {
+    overflow: auto;
+}
+
+td {
+    padding: 4px !important;
+}

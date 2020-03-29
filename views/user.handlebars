@@ -1,40 +1,8 @@
 <div class="container">
+  <span id="userId" data-id={{userInfo.id}}></span>
+    <!-- Dashboard -->
+    {{> dashboard}}
 
-  <div id="dashboard">
-    <span id="userId" data-id={{userInfo.id}}></span>
-
-    <h2>Hello {{userInfo.firstname}} {{userInfo.lastname}}    <button class="buttons btn btn-primary my-2 my-sm-0" type="submit" 
-    onclick="window.location='http://localhost:3000/logout'">Logout</button></h2> 
-
-    Random
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere felis ac diam fringilla, eget placerat
-    urna lacinia. Quisque eu volutpat ipsum, nec tincidunt nulla. Integer non orci non ipsum hendrerit ultrices ac quis
-    erat. Etiam nisi tortor, egestas rutrum arcu vel, commodo finibus lacus. Nam mollis mi in congue porta. Praesent
-    diam odio, fringilla vel finibus eget, elementum ut arcu. Vestibulum efficitur sed leo sit amet finibus. Vivamus
-    tristique vel lectus ac congue. Mauris non nibh enim. Pellentesque viverra lacus in erat malesuada vulputate. Aenean
-    vestibulum gravida tincidunt. Aliquam lacus massa, elementum quis ex id, placerat elementum tortor. Phasellus ligula
-    nunc, venenatis sit amet condimentum quis, vestibulum quis neque. Morbi diam enim, cursus pulvinar justo eu, tempor
-    aliquet neque. Sed a blandit justo.
-
-    Nulla volutpat elementum tortor, ut pellentesque nisi sagittis non. Proin varius, felis sit amet rhoncus gravida,
-    orci elit tempor sapien, ut blandit orci felis ut purus. Integer sit amet sollicitudin elit, in rhoncus leo. Morbi
-    lectus lectus, tempus nec eros ac, lacinia imperdiet nisi. Aliquam rutrum dui non tincidunt fringilla. Sed posuere
-    congue massa, eu placerat dui. Nulla facilisis, metus vehicula pulvinar tincidunt, nisi velit elementum est, vitae
-    accumsan turpis risus sit amet eros. Suspendisse finibus tristique nunc, a laoreet urna egestas et. In porta ante at
-    nibh placerat, vel viverra purus eleifend. Cras ligula nibh, malesuada sit amet est eu, euismod venenatis sem.
-    Vivamus efficitur massa in pellentesque euismod. Suspendisse non hendrerit nunc, vel eleifend lacus. Curabitur
-    commodo elit sed dui mollis, in ultricies urna pretium. Fusce velit massa, pretium id mi vel, laoreet blandit
-    libero.
-
-    Quisque malesuada mauris sit amet finibus eleifend. Sed id mi non lacus tempor rutrum. Nullam scelerisque dignissim
-    suscipit. Curabitur hendrerit arcu eu ante sollicitudin ultrices. Mauris condimentum, justo in fringilla pulvinar,
-    enim lorem maximus purus, quis dictum mi massa efficitur metus. Aenean nisi turpis, porta et ultricies a, lacinia eu
-    odio. Quisque ut ex elementum, placerat ipsum vitae, aliquam arcu. Nam porta velit in vestibulum tempus. Etiam ac pu
-
-
-  </div>
-
-  <!--              EMI THING                  -->
-  {{> everythingTracker }}
-
+    <!-- Everything Tracker -->
+    {{> everythingTracker }}
 </div>

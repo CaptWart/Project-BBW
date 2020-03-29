@@ -18,7 +18,7 @@ module.exports = function(app) {
 
   // GET route for retrieving money by a single money
   // app.get("/api/money/:id", function(req, res) {
-  // // Join the "users" table to include the user info
+  //   // Join the "users" table to include the user info
   //   db.money.findOne({
   //     include: {
   //       model: db.user
@@ -32,6 +32,19 @@ module.exports = function(app) {
   // });
 
   // GET route for retrieving all of the money by a single user
+  app.get("/api/money/total", function(req, res) {
+    // Join the "users" table to include the user info
+    console.log(req.query);
+    db.money.findAll({
+      where: {
+        userId: req.query.userId
+      }
+    }).then(function(dbMoney) {
+      res.json(dbMoney);
+    });
+  });
+
+  // GET route for retrieving money data by a single user and a single day
   app.get("/api/money", function(req, res) {
     // Join the "users" table to include the user info
     console.log(req.query);

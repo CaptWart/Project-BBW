@@ -32,6 +32,21 @@ module.exports = function(app) {
   // });
 
   // GET route for retrieving all of the food by a single user
+  app.get("/api/food/total", function(req, res) {
+    // Join the "users" table to include the user info
+    db.food.findAll({
+      include: {
+        model: db.user
+      },
+      where: {
+        userId: req.query.userId
+      }
+    }).then(function(dbFood) {
+      res.json(dbFood);
+    });
+  });
+
+  // GET route for retrieving food data by a single user and a single day
   app.get("/api/food", function(req, res) {
     // Join the "users" table to include the user info
     db.food.findAll({
