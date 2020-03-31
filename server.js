@@ -106,7 +106,7 @@ var exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
-
+app.set("trust proxy", 1);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
