@@ -12,8 +12,7 @@ dotenv.config();
 
 // Perform the login, after login Auth0 will redirect to callback
 router.get('/login', passport.authenticate('auth0', {
-  scope: 'openid email profile',
-  prompt=login
+  scope: 'openid email profile'
 }), function (req, res) {
   res.redirect('/');
 });
