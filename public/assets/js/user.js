@@ -13,7 +13,7 @@ $(document).ready(function() {
     else {
       $.post("/addprofile", data, function(data, status){
       });
-      window.location='http://localhost:3000/user';
+      window.location='https://bodybywawa.herokuapp.com/user';
     }
 
   });
