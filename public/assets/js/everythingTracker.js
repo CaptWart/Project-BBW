@@ -4,6 +4,43 @@ $(function() {
 
   start();
 
+  //--- Dashboard ---//
+  // Calculate and display the total calories
+  function getTotalCalories() {
+    let totalCalories = 0;
+    const data = {userId: userID};
+    $.get("/api/food/total", data, function(data) {
+      data.forEach(item => {
+        totalCalories += item.calories;
+      });
+      $("#totalCalories").text(`${totalCalories} cal`);
+    });
+  }
+
+  // Calculate and display the total weight moved
+  function getTotalWeightMoved() {
+    let totalWeightMoved = 0;
+    const data = {userId: userID};
+    $.get("/api/fitnesses/total", data, function(data) {
+      data.forEach(workout => {
+        totalWeightMoved += workout.weight * workout.sets * workout.reps;
+      });
+      $("#totalWeightMoved").text(`${totalWeightMoved} lbs`);
+    });
+  }
+
+  // Calculate and display the total money spent
+  function getTotalMoneySpent() {
+    let totalMoneySpent = 0;
+    const data = {userId: userID};
+    $.get("/api/money/total", data, function(data) {
+      data.forEach(item => {
+        totalMoneySpent += item.price;
+      });
+      $("#totalMoneySpent").text(`$ ${totalMoneySpent}`);
+    });
+  }
+
   // Submit button (to enter the days) event handler
   $("#numDaysBtn").on("click", function() {
     $("#dayBtnDiv").empty();
@@ -57,8 +94,10 @@ $(function() {
     }
   }
 
-  // work:
   function start() {
+    getTotalCalories();
+    getTotalWeightMoved();
+    getTotalMoneySpent();
     $.get("/api/users/" + userID, function(data) {
       const days = data.days;
       if(days) { // if the tracking days have been set
@@ -272,6 +311,7 @@ $(function() {
         $.post("/api/money", newMoney, function(data) {
           console.log("data posted: ", data);
           resetMoneyTable();
+          getTotalMoneySpent();
         });
       } else {
         const updatedData = {
@@ -284,6 +324,7 @@ $(function() {
           type: "PUT",
           data: updatedData
         }).then(function(data) {
+          getTotalMoneySpent();
           console.log("data updated: ", data);
         });
       }
@@ -331,6 +372,7 @@ $(function() {
         $.post("/api/fitnesses", newFitness, function(data) {
           console.log("data posted: ", data);
           resetFitnessTable();
+          getTotalWeightMoved();
         });
       } else {
         const updatedData = {
@@ -346,6 +388,7 @@ $(function() {
           type: "PUT",
           data: updatedData
         }).then(function(data) {
+          getTotalWeightMoved();
           console.log("data updated: ", data);
         });
       }
@@ -373,6 +416,7 @@ $(function() {
         $.post("/api/food", newFood, function(data) {
           console.log("data posted: ", data);
           resetFoodTable();
+          getTotalCalories();
         });
       } else {
         const updatedData = {
@@ -385,6 +429,7 @@ $(function() {
           type: "PUT",
           data: updatedData
         }).then(function(data) {
+          getTotalCalories();
           console.log("data updated: ", data);
         });
       }
@@ -405,6 +450,7 @@ $(function() {
     }).then(function() {
       console.log("data deleted: ", deleteData);
       resetMoneyTable();
+      getTotalMoneySpent();
     });
   });
 
@@ -421,6 +467,7 @@ $(function() {
     }).then(function() {
       console.log("data deleted: ", deleteData);
       resetFitnessTable();
+      getTotalWeightMoved();
     });
   });
 
@@ -437,6 +484,7 @@ $(function() {
     }).then(function() {
       console.log("data deleted: ", deleteData);
       resetFoodTable();
+      getTotalCalories();
     });
   });
 });
