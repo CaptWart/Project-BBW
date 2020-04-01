@@ -1,36 +1,6 @@
 const db = require("../models");
 
 module.exports = function(app) {
-  // // GET route for getting all of the food by all users
-  // app.get("/api/food", function(req, res) {
-  //   const query = {};
-  //   if (req.query.user_id) {
-  //     query.UserId = req.query.user_id;
-  //   }
-  //   // Join the "users" table to include the user info
-  //   db.food.findAll({
-  //     include: [db.user],
-  //     where: query
-  //   }).then(function(dbFood) {
-  //     res.json(dbFood);
-  //   });
-  // });
-
-  // // GET route for retrieving food by a single food
-  // app.get("/api/food/:id", function(req, res) {
-  //   // Join the "users" table to include the user info
-  //   db.food.findOne({
-  //     include: {
-  //       model: db.user
-  //     },
-  //     where: {
-  //       id: req.params.id
-  //     }
-  //   }).then(function(dbFood) {
-  //     res.json(dbFood);
-  //   });
-  // });
-
   // GET route for retrieving all of the food by a single user
   app.get("/api/food/total", function(req, res) {
     // Join the "users" table to include the user info
